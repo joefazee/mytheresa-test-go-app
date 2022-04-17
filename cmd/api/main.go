@@ -4,11 +4,12 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	"os"
+
 	"github.com/joefazee/mytheresa/migration"
 	"github.com/joefazee/mytheresa/pkg/logger"
 	"github.com/joefazee/mytheresa/pkg/models/postgres"
 	_ "github.com/lib/pq"
-	"os"
 )
 
 func main() {
@@ -34,7 +35,7 @@ func main() {
 	db.SetMaxOpenConns(cfg.db.maxOpenConns)
 	db.SetMaxIdleConns(cfg.db.maxIdleConns)
 
-	// run migration
+	// run migration - for large projects, I use github.com/golang-migrate/migrate
 	err = migration.Run(db)
 	if err != nil {
 		appLogger.Error(err, map[string]string{"mysql": "unable to execute migration"})

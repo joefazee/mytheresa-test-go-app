@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+
 	"github.com/joefazee/mytheresa/pkg/data"
 	"github.com/joefazee/mytheresa/pkg/models"
 )
@@ -33,7 +34,7 @@ func (m *ProductModel) GetAll(filter data.Filter) (models.Products, data.Metadat
 	case filter.PriceLessThan > 0 && filter.Category == "":
 		rows, err = m.DB.Query(querySelectProductsByPressLessThan, filter.PriceLessThan, filter.Limit(), filter.Offset())
 	default:
-		rows, err = m.DB.Query(querySelectProductsNoQuery, filter.Limit(), filter.Offset()) // I could have used QueryContext instead
+		rows, err = m.DB.Query(querySelectProductsNoQuery, filter.Limit(), filter.Offset()) // QueryContext is another option
 	}
 
 	if err != nil {

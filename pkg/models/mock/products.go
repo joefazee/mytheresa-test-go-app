@@ -60,7 +60,7 @@ func (m ProductModel) GetAll(filter data.Filter) (models.Products, data.Metadata
 	var result models.Products
 	switch {
 
-	case filter.Category != "" && filter.PriceLessThan > 0: // I was thinking of setting default value to -1
+	case filter.Category != "" && filter.PriceLessThan > 0:
 		for _, p := range products {
 			if p.Category == filter.Category && p.Price <= filter.PriceLessThan {
 				result = append(result, p)
