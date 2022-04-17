@@ -1,0 +1,38 @@
+version: '3'
+services:
+
+  mytheresa-api-db:
+    container_name: mytheresa-api-db
+    image: 'postgres:13.4'
+    ports:
+      - "5444:5432"
+    environment:
+      POSTGRES_USER: mytheresa
+      POSTGRES_PASSWORD: mytheresa
+      POSTGRES_DB: mytheresa
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - api_network
+
+
+  mytheresa-api:
+    container_name: mytheresa-api
+    build: .
+    ports:
+      - "5555:5555"
+    depends_on:
+      - mytheresa-api-db
+    environment:
+      DATABASE_DSN: "host=mytheresa-api-db port=5432 user=mytheresa password=mytheresa dbname=mytheresa sslmode=disable timezone=UTC connect_timeout=5"
+    networks:
+      - api_network
+
+
+networks:
+  api_network:
+    driver: bridge
+    
+volumes:
+  api:
+  database_postgres:
