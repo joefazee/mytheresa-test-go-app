@@ -7,23 +7,23 @@ You can access the application on http://localhost:5555/v1/products
 ## How to run the application
 
 ```shell
-git clone git@github.com:joefazee/mytheresa-test-go-app.git  && cd $_ && make docker/run
+git clone git@github.com:joefazee/mytheresa-test-go-app.git  && cd mytheresa-test-go-app && make docker/run
 ```
 
 ### Important commands
 
 ```shell
-make run/test 
+make run/test
 # Runs both unit and integration test
 ```
 
 ```shell
-make docker/run 
-# Runs the application on http://localhost:5555/v1/products 
+make docker/run
+# Runs the application on http://localhost:5555/v1/products
 ```
 
 ```shell
-make docker/stop 
+make docker/stop
 # Stop the application
 ```
 
