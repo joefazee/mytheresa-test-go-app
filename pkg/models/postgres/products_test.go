@@ -3,11 +3,12 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
-	"github.com/joefazee/mytheresa/migration"
-	"github.com/joefazee/mytheresa/pkg/data"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/joefazee/mytheresa/migration"
+	"github.com/joefazee/mytheresa/pkg/data"
 
 	_ "github.com/jackc/pgconn"
 	_ "github.com/jackc/pgx/v4"
@@ -94,7 +95,7 @@ func TestMain(m *testing.M) {
 
 func TestProductModel_GetAll(t *testing.T) {
 
-	tests := []struct {
+	testTable := []struct {
 		name      string
 		filter    data.Filter
 		wantCount int
@@ -106,7 +107,7 @@ func TestProductModel_GetAll(t *testing.T) {
 		{name: "filter by priceLessThan", filter: data.Filter{Category: "boots", PriceLessThan: 80000, PageSize: 5, Page: 1}, wantCount: 1, wantError: false},
 	}
 
-	for _, tt := range tests {
+	for _, tt := range testTable {
 		t.Run(tt.name, func(t *testing.T) {
 			products, _, err := productsModel.GetAll(tt.filter)
 			gotCount := len(products)
